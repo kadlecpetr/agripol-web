@@ -228,6 +228,13 @@
     const open = n => { show(n); lb.classList.add('is-open'); document.body.classList.add('no-scroll'); };
     const close = () => { lb.classList.remove('is-open'); document.body.classList.remove('no-scroll'); };
     figs.forEach((f, n) => $('.gfig__open', f).addEventListener('click', () => open(n)));
+    // tlačítko Foto v tabulce otevře rovnou fotku daného modelu jako vyskakovací okno
+    $$('.fotobtn[href^="#"]').forEach(b => b.addEventListener('click', e => {
+      const sec = document.getElementById(b.getAttribute('href').slice(1));
+      const first = sec && $('.gfig', sec);
+      if (!first) return;
+      e.preventDefault(); open(figs.indexOf(first));
+    }));
     $('.lb-prev', lb).addEventListener('click', e => { e.stopPropagation(); show(i - 1); });
     $('.lb-next', lb).addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
     img.addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
