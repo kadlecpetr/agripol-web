@@ -160,8 +160,60 @@
     });
   }
 
+
+  /* ===== Animace a interakce ===== */
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function initFx() {
+    // ukazatel čtení
+    const bar = document.createElement('div'); bar.className = 'progress'; document.body.appendChild(bar);
+    const header = $('.header'); let lastY = 0;
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, scrollY / h) : 0) + ')';
+      const hero = $('.hero__photo.is-par, .hero__slide.is-active .hero__photo');
+      if (hero && !reduce && scrollY < innerHeight) hero.style.translate = '0 ' + Math.round(scrollY * .08) + 'px';
+      if (header && innerWidth > 720) header.classList.toggle('is-hidden', scrollY > 160);
+      lastY = scrollY;
+    };
+    addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    // číslice s počítáním
+    $$('.stat b').forEach(el => {
+      const m = el.textContent.trim().match(/^(\d+)(\+?)$/); if (!m || +m[1] > 9999 || reduce) return;
+      const end = +m[1], suf = m[2]; el.textContent = '0' + suf;
+      new IntersectionObserver((es, o) => es.forEach(e => { if (!e.isIntersecting) return; o.disconnect();
+        const t0 = performance.now(), d = 1400;
+        (function tick(t) { const p = Math.min(1, (t - t0) / d), v = Math.round(end * (1 - Math.pow(1 - p, 3)));
+          el.textContent = v + suf; if (p < 1) requestAnimationFrame(tick); })(t0);
+      }), { threshold: .6 }).observe(el);
+    });
+    // záře pod kurzorem na kartách
+    $$('.pcard, .offer-tile').forEach(c => c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect(); c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    }));
+    // šipky a swipe ve slideru
+    const root = $('[data-slider]');
+    if (root) {
+      const dots = $$('.hero__dot', root), ctrl = $('.hero__ctrl', root);
+      const go = d => { const i = dots.findIndex(x => x.classList.contains('is-active')); dots[(i + d + dots.length) % dots.length].click(); };
+      const arrows = document.createElement('div'); arrows.className = 'hero__arrows';
+      arrows.innerHTML = '<button class="hero__arrow" aria-label="Předchozí"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button><button class="hero__arrow" aria-label="Další"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>';
+      ctrl.appendChild(arrows);
+      const [pb, nb] = $$('button', arrows); pb.onclick = () => go(-1); nb.onclick = () => go(1);
+      let x0 = null; root.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
+      root.addEventListener('touchend', e => { if (x0 !== null && Math.abs(e.changedTouches[0].clientX - x0) > 50) go(e.changedTouches[0].clientX < x0 ? 1 : -1); x0 = null; });
+    }
+    // zvětšení fotky produktu
+    const gm = $('.gallery__main');
+    if (gm && $('[data-gmain]')) {
+      const lb = document.createElement('div'); lb.className = 'lightbox'; lb.innerHTML = '<img alt=""><button aria-label="Zavřít">×</button>'; document.body.appendChild(lb);
+      const close = () => lb.classList.remove('is-open');
+      gm.addEventListener('click', () => { $('img', lb).src = $('[data-gmain]').src; lb.classList.add('is-open'); });
+      lb.addEventListener('click', close); addEventListener('keydown', e => e.key === 'Escape' && close());
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    initHeader(); initSlider(); initReveal(); initToTop(); initList(); initGallery(); initCalc(); initCompat(); initForm();
+    initHeader(); initSlider(); initReveal(); initToTop(); initList(); initGallery(); initCalc(); initCompat(); initForm(); initFx();
     $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
   });
 })();
