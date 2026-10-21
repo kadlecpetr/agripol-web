@@ -41,6 +41,26 @@
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
+
+  /* Slider na úvodu: čtyři zprávy, přepíná se samo, zastaví se při najetí myší */
+  function initSlider() {
+    const root = $('[data-slider]');
+    if (!root) return;
+    const slides = $$('.hero__slide', root), dots = $$('.hero__dot', root);
+    let i = 0, timer = null;
+    const show = n => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle('is-active', k === i); s.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
+      dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
+    };
+    const start = () => { stop(); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(() => show(i + 1), 6500); };
+    const stop = () => { if (timer) clearInterval(timer); timer = null; };
+    dots.forEach((d, k) => d.addEventListener('click', () => { show(k); start(); }));
+    root.addEventListener('mouseenter', stop); root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop); root.addEventListener('focusout', start);
+    start();
+  }
+
   /* Výpis kategorie: hledání, jen skladem, řazení, podkategorie */
   function initList() {
     const list = $('[data-list]');
@@ -120,7 +140,7 @@
     const form = $('[data-form]');
     if (!form) return;
     const params = new URLSearchParams(location.search);
-    if (params.get('tema')) form.elements.tema.value = params.get('tema');
+    if (params.get('tema') && form.elements.tema) form.elements.tema.value = params.get('tema');
     if (params.get('zprava')) form.elements.zprava.value = params.get('zprava');
     else if (params.get('produkt')) form.elements.zprava.value = 'Dobrý den, zajímá mě: ' + params.get('produkt') + '.\n';
     const status = $('.form-status', form);
@@ -133,15 +153,15 @@
       }
       if (!f.gdpr.checked) return say('is-err', 'Pro odeslání potřebujeme váš souhlas se zpracováním údajů.');
       const body = ['Jméno: ' + f.jmeno.value, 'E-mail: ' + f.email.value, 'Telefon: ' + f.telefon.value,
-        'Téma: ' + f.tema.value, '', f.zprava.value].join('\n');
+        'Téma: ' + (f.tema ? f.tema.value : ''), '', f.zprava.value].join('\n');
       say('is-ok', 'Otevíráme váš e-mailový program. Pokud se nic nestalo, napište na info@agripol.cz.');
-      location.href = 'mailto:info@agripol.cz?subject=' + encodeURIComponent('Poptávka z webu — ' + (f.tema.value || 'obecná')) +
+      location.href = 'mailto:info@agripol.cz?subject=' + encodeURIComponent('Poptávka z webu — ' + ((f.tema && f.tema.value) || 'obecná')) +
         '&body=' + encodeURIComponent(body);
     });
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    initHeader(); initReveal(); initToTop(); initList(); initGallery(); initCalc(); initCompat(); initForm();
+    initHeader(); initSlider(); initReveal(); initToTop(); initList(); initGallery(); initCalc(); initCompat(); initForm();
     $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
   });
 })();
