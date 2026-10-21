@@ -1213,3 +1213,4 @@ a.chip:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
 .fotobtn svg{flex:none;display:block;}
 .gbrand-grid .gsec__head h4{flex-basis:100%;}
 .gbrand-grid .gsec:not(.gsec--wide) .gsec__head h4{min-height:2.4em;display:flex;align-items:flex-end;}
+#galerie[hidden]{display:none !important;}
