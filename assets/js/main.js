@@ -212,8 +212,38 @@
     }
   }
 
+
+  /* Galerie konfigurátoru: zvětšení fotky s listováním (šipky, klávesy, swipe) */
+  function initGalleryLb() {
+    const figs = $$('[data-lbgroup] .gfig');
+    if (!figs.length) return;
+    const items = figs.map(f => ({ src: $('img', f).src, cap: $('figcaption', f).textContent }));
+    const lb = document.createElement('div'); lb.className = 'lightbox';
+    lb.innerHTML = '<figure><img alt=""><figcaption></figcaption><span class="lightbox__count"></span></figure>' +
+      '<button class="lb-nav lb-prev" aria-label="Předchozí">‹</button><button class="lb-nav lb-next" aria-label="Další">›</button><button class="lb-close" aria-label="Zavřít">×</button>';
+    document.body.appendChild(lb);
+    const img = $('img', lb), cap = $('figcaption', lb), cnt = $('.lightbox__count', lb);
+    let i = 0;
+    const show = n => { i = (n + items.length) % items.length; img.src = items[i].src; img.alt = items[i].cap; cap.textContent = items[i].cap; cnt.textContent = (i + 1) + ' / ' + items.length; };
+    const open = n => { show(n); lb.classList.add('is-open'); document.body.classList.add('no-scroll'); };
+    const close = () => { lb.classList.remove('is-open'); document.body.classList.remove('no-scroll'); };
+    figs.forEach((f, n) => $('.gfig__open', f).addEventListener('click', () => open(n)));
+    $('.lb-prev', lb).addEventListener('click', e => { e.stopPropagation(); show(i - 1); });
+    $('.lb-next', lb).addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
+    img.addEventListener('click', e => { e.stopPropagation(); show(i + 1); });
+    lb.addEventListener('click', close);
+    addEventListener('keydown', e => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(i - 1); if (e.key === 'ArrowRight') show(i + 1);
+    });
+    let x0 = null;
+    lb.addEventListener('touchstart', e => x0 = e.touches[0].clientX, { passive: true });
+    lb.addEventListener('touchend', e => { if (x0 !== null && Math.abs(e.changedTouches[0].clientX - x0) > 50) show(e.changedTouches[0].clientX < x0 ? i + 1 : i - 1); x0 = null; });
+    // tlačítko Foto v tabulce: když je řádek jiné značky schovaný, nevadí — kotva vede do galerie
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    initHeader(); initSlider(); initReveal(); initToTop(); initList(); initGallery(); initCalc(); initCompat(); initForm(); initFx();
+    initHeader(); initSlider(); initReveal(); initToTop(); initList(); initGallery(); initCalc(); initCompat(); initForm(); initFx(); initGalleryLb();
     $$('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
   });
 })();
