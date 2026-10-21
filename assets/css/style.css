@@ -1,0 +1,1084 @@
+/* =========================================================
+   adapterypronakladace.cz — adaptéry pro čelní nakladače
+   Světlá čistá varianta v barvách Agripol — červená a grafit
+   ========================================================= */
+
+/* ---------- 1. Tokeny ---------- */
+:root{
+  /* červená z loga Agripol, tlačítka a akcenty */
+  --accent:#C8191F;
+  --accent-600:#AA1419;
+  --accent-700:#8C1015;
+  --accent-100:#F5D4D5;
+  --accent-50:#FCEFEF;
+  /* světlejší červená na tmavý podklad (kontrast textu) */
+  --accent-light:#F0484D;
+  /* šedá z pruhu v logu */
+  --steel:#A3A3A3;
+
+  --ink:#1E1F22;
+  --ink-soft:#3B3D42;
+  --muted:#6B6E75;
+  --line:#E4E5E8;
+  --line-strong:#CFD1D6;
+
+  --bg:#FFFFFF;
+  --bg-soft:#F4F4F6;
+  --bg-dark:#1F2023;
+
+  --amber:#E8A317;
+
+  --radius-s:8px;
+  --radius:14px;
+  --radius-l:22px;
+
+  --shadow-s:0 1px 2px rgba(18,18,22,.05), 0 2px 8px rgba(18,18,22,.04);
+  --shadow:0 2px 6px rgba(18,18,22,.05), 0 12px 28px rgba(18,18,22,.07);
+  --shadow-l:0 4px 12px rgba(18,18,22,.06), 0 24px 60px rgba(18,18,22,.10);
+
+  --wrap:1220px;
+  --header-h:84px;
+
+  --font-head:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+/* ---------- 2. Reset ---------- */
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + 16px);}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.65;
+  color:var(--ink-soft);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{max-width:100%;display:block;}
+/* bez height:auto drží obrázek výšku z atributu a při zúžení se roztáhne */
+img{height:auto;}
+a{color:inherit;text-decoration:none;}
+button,input,select,textarea{font:inherit;color:inherit;}
+ul,ol{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4{
+  font-family:var(--font-head);
+  color:var(--ink);
+  font-weight:700;
+  line-height:1.08;
+  letter-spacing:-.01em;
+  margin:0 0 .5em;
+  text-wrap:balance;
+}
+h1{font-size:clamp(2.4rem,6vw,4.1rem);text-transform:uppercase;}
+h2{font-size:clamp(1.9rem,4vw,2.9rem);text-transform:uppercase;}
+h3{font-size:clamp(1.25rem,2.2vw,1.55rem);}
+h4{font-size:1.1rem;}
+p{margin:0 0 1rem;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--ink);font-weight:600;}
+::selection{background:var(--accent);color:#fff;}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px;}
+
+/* ---------- 3. Layout ---------- */
+.wrap{width:min(100% - 40px,var(--wrap));margin-inline:auto;}
+.section{padding:clamp(56px,8vw,110px) 0;}
+.section--soft{background:var(--bg-soft);}
+.section--tight{padding:clamp(40px,5vw,66px) 0;}
+.grid{display:grid;gap:24px;}
+.center{text-align:center;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+/* ---------- 4. Prvky ---------- */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--font-body);
+  font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--accent);border-radius:2px;}
+.center .eyebrow::before{display:none;}
+.lead{font-size:clamp(1.02rem,1.5vw,1.16rem);color:var(--muted);max-width:62ch;}
+.center .lead{margin-inline:auto;}
+.section-head{margin-bottom:clamp(32px,4vw,52px);}
+
+.btn{
+  --btn-bg:var(--accent);--btn-fg:#fff;--btn-bd:var(--accent);
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  padding:14px 26px;border:1.5px solid var(--btn-bd);border-radius:100px;
+  background:var(--btn-bg);color:var(--btn-fg);
+  font-weight:600;font-size:.95rem;line-height:1;letter-spacing:.01em;
+  cursor:pointer;text-align:center;
+  transition:transform .2s var(--ease),background .2s var(--ease),box-shadow .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease);
+}
+.btn:hover{--btn-bg:var(--accent-600);--btn-bd:var(--accent-600);transform:translateY(-2px);box-shadow:0 10px 22px rgba(200,25,31,.26);}
+.btn:active{transform:translateY(0);}
+.btn--ghost{--btn-bg:transparent;--btn-fg:var(--ink);--btn-bd:var(--line-strong);}
+.btn--ghost:hover{--btn-bg:var(--accent-50);--btn-fg:var(--accent-700);--btn-bd:var(--accent);box-shadow:none;}
+.btn--light{--btn-bg:#fff;--btn-fg:var(--ink);--btn-bd:#fff;}
+.btn--light:hover{--btn-bg:#fff;--btn-fg:var(--accent-700);--btn-bd:#fff;}
+.btn--outline-light{--btn-bg:transparent;--btn-fg:#fff;--btn-bd:rgba(255,255,255,.45);}
+.btn--outline-light:hover{--btn-bg:rgba(255,255,255,.12);--btn-fg:#fff;--btn-bd:#fff;box-shadow:none;}
+.btn--sm{padding:10px 18px;font-size:.86rem;}
+.btn--block{width:100%;}
+.btn svg{width:17px;height:17px;flex:none;}
+
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 13px;border-radius:100px;
+  background:var(--accent-50);color:var(--accent-700);
+  font-size:.76rem;font-weight:600;letter-spacing:.02em;
+  border:1px solid var(--accent-100);
+}
+.chip--neutral{background:var(--bg-soft);color:var(--muted);border-color:var(--line);}
+.chip--stock{background:#EAF7EC;color:#1E7A2A;border-color:#C6E7CC;}
+.chip--order{background:#FFF6E3;color:#9A6B06;border-color:#F3E1B4;}
+.chip--sale{background:#FDEBEC;color:#B3261E;border-color:#F6C9CB;}
+
+/* ---------- 5. Hlavička ---------- */
+.header{
+  position:fixed;inset:0 0 auto;z-index:100;
+  height:var(--header-h);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:saturate(150%) blur(14px);
+  -webkit-backdrop-filter:saturate(150%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s var(--ease),box-shadow .3s var(--ease),height .3s var(--ease);
+}
+.header.is-stuck{border-bottom-color:var(--line);box-shadow:0 6px 24px rgba(20,22,26,.08);}
+.header--dark{background:rgba(31,32,35,.96);}
+.header--dark.is-stuck{border-bottom-color:rgba(255,255,255,.08);box-shadow:0 6px 24px rgba(0,0,0,.28);}
+/* na úvodu tmavá lišta navazuje na hero, jinde je světlá */
+.header--dark .nav__link{color:rgba(255,255,255,.82);}
+.header--dark .nav__link:hover{color:#fff;background:rgba(255,255,255,.08);}
+.header--dark .nav__link.is-active{color:#fff;}
+.header--dark .nav__link.is-active::after{background:var(--accent-light);}
+.header--dark .header__tel{color:#fff;}
+.header--dark .header__tel svg{color:var(--accent-light);}
+.header--dark .header__tel:hover{color:var(--accent-light);}
+.header--dark .burger{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);}
+.header--dark .burger span,.header--dark .burger span::before,.header--dark .burger span::after{background:#fff;}
+.header--dark .burger.is-open span{background:transparent;}
+.header__inner{display:flex;align-items:center;gap:20px;height:100%;}
+.logo{display:flex;align-items:center;flex:none;}
+/* logo Agripol s nápisem — výšku drží obrázek, šířka se dopočítá */
+.logo__img{height:60px;width:auto;}
+
+.nav{margin-left:auto;}
+.nav__list{display:flex;align-items:center;gap:4px;}
+.nav__link{
+  position:relative;display:block;padding:10px 15px;border-radius:8px;
+  font-size:.93rem;font-weight:500;color:var(--ink-soft);
+  transition:color .2s var(--ease),background .2s var(--ease);
+}
+.nav__link:hover{color:var(--accent-700);background:var(--accent-50);}
+.nav__link.is-active{color:var(--accent-700);font-weight:600;}
+.nav__link.is-active::after{
+  content:"";position:absolute;left:15px;right:15px;bottom:4px;height:2px;
+  background:var(--accent);border-radius:2px;
+}
+.header__cta{display:flex;align-items:center;gap:12px;flex:none;}
+.header__tel{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:600;font-size:.93rem;color:var(--ink);white-space:nowrap;
+  padding:8px 4px;
+}
+.header__tel svg{width:17px;height:17px;color:var(--accent);}
+.header__tel:hover{color:var(--accent-700);}
+.header__cart{
+  position:relative;display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:100px;background:var(--accent);color:#fff;
+  font-weight:600;font-size:.86rem;line-height:1;white-space:nowrap;
+  transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.header__cart:hover{background:var(--accent-600);transform:translateY(-1px);}
+.header__cart svg{width:18px;height:18px;flex:none;}
+.header__cart-count{
+  min-width:20px;height:20px;padding:0 6px;border-radius:10px;
+  background:#fff;color:var(--accent-700);font-size:.72rem;font-weight:700;
+  display:inline-grid;place-items:center;
+}
+.header__cart-count[hidden]{display:none;}
+
+.burger{
+  display:none;width:44px;height:44px;flex:none;
+  align-items:center;justify-content:center;
+  background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;cursor:pointer;
+}
+.burger span{display:block;width:19px;height:2px;background:var(--ink);border-radius:2px;position:relative;transition:.25s var(--ease);}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:19px;height:2px;background:var(--ink);border-radius:2px;transition:.25s var(--ease);}
+.burger span::before{top:-6px;}
+.burger span::after{top:6px;}
+.burger.is-open span{background:transparent;}
+.burger.is-open span::before{top:0;transform:rotate(45deg);}
+.burger.is-open span::after{top:0;transform:rotate(-45deg);}
+
+.mobile-nav{
+  position:fixed;inset:var(--header-h) 0 0;z-index:99;
+  background:var(--bg-dark);padding:26px 0 40px;overflow-y:auto;
+  transform:translateY(-8px);opacity:0;visibility:hidden;
+  transition:.28s var(--ease);
+}
+.mobile-nav.is-open{transform:none;opacity:1;visibility:visible;}
+.mobile-nav__link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 4px;border-bottom:1px solid rgba(255,255,255,.1);
+  font-family:var(--font-head);font-size:1.5rem;font-weight:600;color:#fff;text-transform:uppercase;
+}
+.mobile-nav__link.is-active{color:var(--accent-light);}
+.mobile-nav__link svg{width:18px;height:18px;color:rgba(255,255,255,.4);}
+.mobile-nav__foot{margin-top:28px;display:grid;gap:12px;}
+.mobile-nav__contact{display:flex;align-items:center;gap:12px;font-weight:600;color:#fff;padding:6px 0;}
+.mobile-nav__contact svg{width:19px;height:19px;color:var(--accent-light);}
+body.no-scroll{overflow:hidden;}
+
+/* ---------- 6. Hero ----------
+   vyříznutý produkt na grafitu s červeným šikmým pruhem */
+.hero{
+  position:relative;padding-top:calc(var(--header-h) + clamp(36px,6vw,74px));
+  padding-bottom:clamp(48px,7vw,92px);
+  background:var(--bg-dark);color:#fff;
+  overflow:hidden;
+  /* hero vyplní celé okno, pás pod ním se objeví až po odrolování;
+     svh místo vh kvůli mobilům, kde se adresní řádek schovává a vh poskakuje */
+  display:flex;align-items:center;
+  min-height:100vh;
+  min-height:100svh;
+}
+/* červený šikmý pruh vpravo dole — stejný motiv jako v tištěném katalogu */
+.hero::before{
+  content:"";position:absolute;right:-8%;bottom:-30%;width:58%;height:80%;
+  background:var(--accent);transform:skewX(-24deg);opacity:.92;
+  pointer-events:none;
+}
+.hero__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(32px,4vw,56px);align-items:center;position:relative;}
+/* dlouhý eyebrow nesmí roztáhnout sloupec přes okraj displeje */
+.hero__grid > *{min-width:0;}
+.hero .eyebrow{flex-wrap:wrap;}
+.hero .eyebrow{color:var(--accent-light);}
+.hero .eyebrow::before{background:var(--accent-light);}
+.hero__title{margin-bottom:20px;color:#fff;}
+.hero__title em{font-style:normal;color:var(--accent-light);}
+.hero__text{font-size:clamp(1.03rem,1.5vw,1.18rem);color:rgba(255,255,255,.72);max-width:52ch;margin-bottom:28px;}
+.hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px;}
+.hero__usp{display:flex;flex-wrap:wrap;gap:10px 22px;}
+.hero__usp li{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:500;color:rgba(255,255,255,.86);}
+.hero__usp svg{width:17px;height:17px;color:var(--accent-light);flex:none;}
+.hero__visual{position:relative;aspect-ratio:1.18;display:grid;place-items:center;}
+/* jemné nasvícení za produktem, aby černý drapák nesplýval s grafitem */
+.hero__visual::before{
+  content:"";position:absolute;inset:4% 0 0 4%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.16),rgba(255,255,255,0));
+  pointer-events:none;
+}
+.hero__product{
+  position:relative;width:100%;
+  filter:drop-shadow(0 22px 22px rgba(0,0,0,.45));
+}
+.hero__badge{
+  position:absolute;left:-6px;bottom:6%;
+  background:#fff;border-radius:16px;
+  box-shadow:var(--shadow);padding:14px 18px;display:flex;align-items:center;gap:13px;
+}
+.hero__badge b{font-family:var(--font-head);font-size:1.9rem;color:var(--accent);line-height:1;}
+.hero__badge span{font-size:.78rem;color:var(--muted);line-height:1.35;max-width:11ch;}
+
+/* ---------- 7. Pás uchycení ---------- */
+.mounts{background:var(--accent);color:#fff;padding:clamp(34px,4vw,52px) 0;}
+.mounts__head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px;}
+.mounts__head h2{color:#fff;font-size:clamp(1.35rem,2.4vw,1.9rem);margin:0;}
+.mounts__head p{color:rgba(255,255,255,.82);font-size:.92rem;margin:6px 0 0;max-width:70ch;}
+.mounts__list{display:flex;flex-wrap:wrap;gap:10px;}
+.mount-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:10px 18px;border-radius:100px;
+  background:rgba(0,0,0,.14);border:1px solid rgba(255,255,255,.28);
+  color:#fff;font-size:.9rem;font-weight:500;
+}
+.mount-pill b{font-weight:600;}
+.mount-pill small{color:rgba(255,255,255,.72);font-size:.78rem;}
+
+/* ---------- 8. Karty kategorií ---------- */
+.cats{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+.cat-card{
+  display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;transition:.28s var(--ease);
+}
+.cat-card:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-4px);}
+/* obrázek pozicujeme napevno — procentní max-height se uvnitř aspect-ratio boxu
+   nemá o co opřít a obrázek pak přetéká ve své nativní výšce */
+.cat-card__img{position:relative;aspect-ratio:4/3;background:#fff;overflow:hidden;border-bottom:1px solid var(--line);}
+.cat-card__img img{
+  position:absolute;top:10px;left:10px;
+  width:calc(100% - 20px);height:calc(100% - 20px);
+  object-fit:contain;transition:transform .35s var(--ease);
+}
+.cat-card:hover .cat-card__img img{transform:scale(1.05);}
+.cat-card__body{padding:20px 22px 24px;display:flex;flex-direction:column;flex:1;}
+.cat-card__body h3{margin-bottom:8px;}
+.cat-card__body p{font-size:.9rem;color:var(--muted);margin-bottom:16px;}
+.cat-card__count{display:inline-block;font-size:.78rem;font-weight:600;color:var(--muted);
+  background:var(--bg-soft);border:1px solid var(--line);border-radius:100px;padding:4px 11px;margin-bottom:14px;align-self:flex-start;}
+.cat-card__more{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;color:var(--accent-700);}
+.cat-card__more svg{width:15px;height:15px;transition:transform .25s var(--ease);}
+.cat-card:hover .cat-card__more svg{transform:translateX(4px);}
+.cat-card--soon .cat-card__count{background:var(--accent-50);border-color:var(--accent-100);color:var(--accent-700);}
+
+/* ---------- 9. Produktové karty ---------- */
+.products{grid-template-columns:repeat(auto-fill,minmax(258px,1fr));}
+.product{
+  position:relative;display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;transition:.28s var(--ease);
+}
+.product:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-4px);}
+.product__media{position:relative;aspect-ratio:4/3;background:#fff;overflow:hidden;border-bottom:1px solid var(--line);}
+.product__media img{
+  position:absolute;top:10px;left:10px;
+  width:calc(100% - 20px);height:calc(100% - 20px);
+  object-fit:contain;transition:transform .35s var(--ease);
+}
+.product:hover .product__media img{transform:scale(1.05);}
+.product__flags{position:absolute;top:12px;left:12px;z-index:2;display:flex;flex-direction:column;gap:6px;align-items:flex-start;}
+.product__body{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1;}
+.product__cat{font-size:.72rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:7px;}
+.product__name{font-family:var(--font-head);font-size:1.32rem;font-weight:700;color:var(--ink);line-height:1.15;margin:0 0 6px;}
+.product__code{font-size:.78rem;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;margin-bottom:12px;}
+.product__specs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.product__specs span{font-size:.75rem;padding:4px 9px;background:var(--bg-soft);border-radius:6px;color:var(--muted);border:1px solid var(--line);}
+.product__specs span.is-strong{background:var(--accent-50);border-color:var(--accent-100);color:var(--accent-700);font-weight:600;}
+.product__foot{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-top:14px;border-top:1px solid var(--line);}
+.product__price b{display:block;font-family:var(--font-head);font-size:1.5rem;color:var(--ink);line-height:1;}
+.product__price small{font-size:.72rem;color:var(--muted);}
+.product__link{position:absolute;inset:0;z-index:1;}
+/* tlačítko leží nad překryvným odkazem, proto musí být samo odkazem */
+.product__btn{position:relative;z-index:2;}
+.product:hover .product__btn{background:var(--accent-50);color:var(--accent-700);border-color:var(--accent);}
+
+/* ---------- 10. Filtry katalogu ---------- */
+.catalog{display:grid;gap:30px;align-items:start;}
+.filters{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px;position:sticky;top:calc(var(--header-h) + 20px);
+  /* panel je vyšší než okno — musí mít vlastní posuvník, jinak se pod myší
+     nedá stránkou hýbat a spodní filtry jsou nedosažitelné */
+  max-height:calc(100vh - var(--header-h) - 40px);
+  overflow-y:auto;
+  overscroll-behavior:auto;
+  scrollbar-width:thin;
+  scrollbar-color:var(--line-strong) transparent;
+}
+.filters::-webkit-scrollbar{width:10px;}
+.filters::-webkit-scrollbar-track{background:transparent;}
+.filters::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:10px;border:3px solid #fff;}
+.filters::-webkit-scrollbar-thumb:hover{background:var(--muted);}
+.filters__group + .filters__group{margin-top:22px;padding-top:22px;border-top:1px solid var(--line);}
+.filters__title{font-family:var(--font-body);font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:12px;}
+.filters__reset{width:100%;margin-top:22px;}
+.check{display:flex;align-items:center;gap:10px;padding:6px 0;cursor:pointer;font-size:.9rem;color:var(--ink-soft);}
+.check input{
+  appearance:none;width:18px;height:18px;flex:none;
+  border:1.5px solid var(--line-strong);border-radius:5px;background:#fff;
+  display:grid;place-content:center;transition:.15s var(--ease);cursor:pointer;
+}
+.check input::before{content:"";width:9px;height:9px;transform:scale(0);transition:.15s var(--ease);box-shadow:inset 1em 1em #fff;clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0%,43% 62%);}
+.check input:checked{background:var(--accent);border-color:var(--accent);}
+.check input:checked::before{transform:scale(1);}
+.check:hover{color:var(--accent-700);}
+.check span.count{margin-left:auto;font-size:.76rem;color:var(--muted);}
+
+.field{display:block;margin-bottom:16px;}
+.field:last-child{margin-bottom:0;}
+.field__label{display:block;font-size:.82rem;font-weight:600;color:var(--ink);margin-bottom:7px;}
+.input,.select,.textarea{
+  width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+  background:#fff;font-size:.94rem;color:var(--ink);
+  transition:border-color .18s var(--ease),box-shadow .18s var(--ease);
+}
+.input::placeholder,.textarea::placeholder{color:#A9ACB2;}
+.input:focus,.select:focus,.textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(200,25,31,.12);}
+.textarea{min-height:130px;resize:vertical;}
+.select{
+  appearance:none;cursor:pointer;padding-right:40px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2368737D' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;background-size:17px;
+}
+.search{position:relative;}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted);pointer-events:none;}
+.search .input{padding-left:44px;}
+
+.catalog__bar{
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+  margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line);
+}
+.catalog__count{font-size:.9rem;color:var(--muted);}
+.catalog__count b{color:var(--ink);}
+.catalog__sort{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.catalog__sort .select{width:auto;min-width:190px;padding-top:9px;padding-bottom:9px;}
+.filters-toggle{display:none;}
+.empty{text-align:center;padding:70px 20px;border:1px dashed var(--line-strong);border-radius:var(--radius);background:var(--bg-soft);}
+.empty svg{width:48px;height:48px;color:var(--line-strong);margin:0 auto 14px;}
+
+/* ---------- 11. Detail produktu ---------- */
+.breadcrumb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:.83rem;color:var(--muted);padding:18px 0;}
+.breadcrumb a:hover{color:var(--accent-700);}
+.breadcrumb svg{width:13px;height:13px;opacity:.5;}
+.detail{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(28px,4vw,50px);align-items:start;}
+/* široká tabulka variant se posouvá uvnitř, sloupec neroztáhne */
+.detail > *{min-width:0;}
+.detail__gallery{position:sticky;top:calc(var(--header-h) + 24px);}
+.detail__stage{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);
+  position:relative;aspect-ratio:4/3;overflow:hidden;
+}
+.detail__stage img{
+  position:absolute;top:22px;left:22px;
+  width:calc(100% - 44px);height:calc(100% - 44px);
+  object-fit:contain;
+}
+.detail h1{font-size:clamp(1.9rem,3.6vw,2.9rem);margin-bottom:10px;}
+.detail__code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86rem;color:var(--muted);margin-bottom:18px;}
+.detail__flags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.detail__price{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;
+  padding:20px 22px;background:var(--accent-50);border:1px solid var(--accent-100);
+  border-radius:var(--radius);margin:22px 0;
+}
+.detail__price b{font-family:var(--font-head);font-size:2.3rem;color:var(--accent-700);line-height:1;}
+.detail__price span{font-size:.86rem;color:var(--muted);}
+.detail__actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:26px;}
+.spec-table{width:100%;border-collapse:collapse;font-size:.93rem;}
+.spec-table th,.spec-table td{padding:12px 2px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;}
+.spec-table th{font-weight:500;color:var(--muted);width:46%;}
+.spec-table td{color:var(--ink);font-weight:500;}
+.detail__thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px;}
+.detail__thumb{
+  aspect-ratio:1;padding:6px;cursor:pointer;overflow:hidden;
+  background:#fff;border:1.5px solid var(--line);border-radius:10px;
+  transition:border-color .2s var(--ease),transform .2s var(--ease);
+}
+.detail__thumb img{width:100%;height:100%;object-fit:contain;}
+.detail__thumb:hover{border-color:var(--line-strong);transform:translateY(-2px);}
+.detail__thumb.is-active{border-color:var(--accent);}
+
+.desc-list{display:grid;gap:7px;}
+.desc-list li{
+  position:relative;padding-left:16px;font-size:.94rem;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;overflow-wrap:anywhere;
+}
+.desc-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent-100);}
+
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;}
+a.chip{transition:.2s var(--ease);}
+a.chip:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+.feature-list{display:grid;gap:11px;margin-top:8px;}
+.feature-list li{display:flex;gap:11px;font-size:.94rem;}
+.feature-list svg{width:19px;height:19px;color:var(--accent);flex:none;margin-top:2px;}
+.detail__block{margin-top:32px;}
+.detail__block h3{margin-bottom:14px;}
+
+/* konfigurátor: šířka, uchycení, výbava, počet kusů */
+.config{
+  margin:22px 0 6px;padding:22px;border:1px solid var(--line);border-radius:var(--radius);
+  background:#fff;box-shadow:var(--shadow-s);
+}
+.config__group + .config__group{margin-top:20px;}
+.config__label{display:block;font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:10px;}
+.config__opts{display:flex;flex-wrap:wrap;gap:8px;}
+.opt{
+  display:flex;flex-direction:column;align-items:center;gap:3px;min-width:86px;
+  padding:10px 14px;border:1.5px solid var(--line-strong);border-radius:10px;background:#fff;
+  cursor:pointer;transition:border-color .15s var(--ease),background .15s var(--ease),transform .15s var(--ease);
+}
+.opt b{font-family:var(--font-head);font-size:1.15rem;font-weight:700;color:var(--ink);line-height:1.1;}
+.opt small{font-size:.74rem;color:var(--muted);white-space:nowrap;}
+.opt:hover{border-color:var(--accent);transform:translateY(-1px);}
+.opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-50);box-shadow:inset 0 0 0 1px var(--accent);}
+.opt[aria-checked="true"] b{color:var(--accent-700);}
+.config__extra{align-items:flex-start;}
+.config__extra input{margin-top:2px;}
+.config__extra small{display:block;font-size:.78rem;color:var(--muted);line-height:1.4;}
+.config__extra .count{white-space:nowrap;font-weight:600;color:var(--ink-soft);}
+.config__sum{margin-top:22px;padding-top:20px;border-top:1px solid var(--line);}
+.config__sum .detail__price{margin:0 0 14px;}
+.config__note{font-size:.85rem;color:#9A6B06;margin:-4px 0 12px;}
+.config__buy{display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
+.config__buy .btn{flex:1 1 220px;}
+.config__tel{display:inline-block;margin-top:12px;font-size:.88rem;color:var(--muted);}
+.config__tel:hover{color:var(--accent-700);}
+.qty{display:inline-flex;align-items:center;height:48px;border:1.5px solid var(--line-strong);border-radius:100px;background:#fff;overflow:hidden;flex:none;}
+.qty button{width:42px;height:100%;border:0;background:none;cursor:pointer;display:grid;place-items:center;color:var(--ink);}
+.qty button:hover{background:var(--bg-soft);}
+.qty button svg{width:16px;height:16px;}
+.qty input{width:42px;height:100%;border:0;background:none;text-align:center;font-weight:600;color:var(--ink);-moz-appearance:textfield;appearance:textfield;}
+.qty input::-webkit-inner-spin-button,.qty input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0;}
+.qty input:focus{outline:none;background:var(--accent-50);}
+.qty--sm{height:40px;}
+.qty--sm button{width:36px;}
+.qty--sm input{width:36px;}
+
+/* přehled variant — tabulka jako v tištěném katalogu */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius-s);}
+.var-table{width:100%;border-collapse:collapse;font-size:.88rem;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.var-table th{background:var(--bg-dark);color:#fff;font-weight:600;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;padding:10px 12px;text-align:left;}
+.var-table td{padding:10px 12px;border-top:1px solid var(--line);color:var(--ink-soft);}
+.var-table td b{color:var(--ink);}
+.var-table tr.is-active td{background:var(--accent-50);}
+.var-table tr.is-active td:first-child{box-shadow:inset 3px 0 0 var(--accent);}
+
+/* uchycení dole u každého produktu */
+.mount-box{padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-soft);scroll-margin-top:calc(var(--header-h) + 16px);}
+.mount-box__inner{display:grid;gap:18px;align-items:center;}
+.mount-box__img{margin:0;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 10px 8px;max-width:240px;}
+.mount-box__img figcaption{font-size:.72rem;color:var(--muted);text-align:center;margin-top:4px;}
+.mount-box p{font-size:.93rem;color:var(--ink-soft);margin:0;}
+.mount-box p b{color:var(--ink);}
+.mount-box .mount-box__help{margin-top:12px;font-size:.84rem;color:var(--muted);}
+@media (min-width:560px){ .mount-box__inner:has(.mount-box__img){grid-template-columns:200px 1fr;} }
+
+.drawings{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;}
+.drawing{display:block;border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px;transition:border-color .2s var(--ease);}
+.drawing:hover{border-color:var(--accent);}
+
+/* ---------- 11b. Poptávkový košík ---------- */
+.toast{
+  position:fixed;left:50%;bottom:20px;z-index:120;
+  width:min(580px,calc(100% - 24px));
+  display:flex;align-items:center;gap:14px;padding:12px 10px 12px 14px;
+  background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-l);
+  opacity:0;visibility:hidden;transform:translate(-50%,24px);transition:.28s var(--ease);
+}
+.toast.is-open{opacity:1;visibility:visible;transform:translate(-50%,0);}
+.toast img{width:64px;height:48px;object-fit:contain;flex:none;}
+.toast__text{flex:1;min-width:0;display:flex;flex-direction:column;font-size:.86rem;line-height:1.35;}
+.toast__text b{color:var(--ink);}
+.toast__text span{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.toast__close{border:0;background:none;width:38px;height:38px;flex:none;display:grid;place-items:center;cursor:pointer;color:var(--muted);border-radius:10px;}
+.toast__close:hover{background:var(--bg-soft);color:var(--ink);}
+.toast__close svg{width:18px;height:18px;}
+
+.cart-layout{display:grid;gap:clamp(28px,4vw,46px);align-items:start;}
+.cart-list{display:grid;gap:12px;}
+.cart-item{
+  display:grid;grid-template-columns:96px minmax(0,1fr) auto auto auto;gap:16px;align-items:center;
+  padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;
+}
+.cart-item__img img{width:96px;height:72px;object-fit:contain;}
+.cart-item__name{font-family:var(--font-head);font-size:1.22rem;font-weight:700;color:var(--ink);line-height:1.15;}
+.cart-item__name:hover{color:var(--accent-700);}
+.cart-item__meta{margin-top:5px;font-size:.82rem;color:var(--muted);display:grid;gap:2px;}
+.cart-item__price{text-align:right;min-width:112px;}
+.cart-item__price b{display:block;font-family:var(--font-head);font-size:1.32rem;color:var(--ink);line-height:1.05;white-space:nowrap;}
+.cart-item__price small{font-size:.74rem;color:var(--muted);white-space:nowrap;}
+.cart-item__remove{border:0;background:none;width:40px;height:40px;border-radius:10px;cursor:pointer;color:var(--muted);display:grid;place-items:center;}
+.cart-item__remove:hover{background:#FDECEC;color:#B3261E;}
+.cart-item__remove svg{width:19px;height:19px;}
+.cart-sum{
+  margin-top:16px;padding:22px 24px;border-radius:var(--radius);
+  background:var(--bg-dark);color:rgba(255,255,255,.7);display:grid;gap:10px;
+}
+.cart-sum span{font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.6);}
+.cart-sum b{display:block;font-family:var(--font-head);font-size:2.2rem;color:#fff;line-height:1.05;margin-top:4px;}
+.cart-sum small{font-size:.84rem;}
+.cart-sum p{font-size:.88rem;margin:0;}
+.cart-sum .btn--ghost{--btn-fg:#fff;--btn-bd:rgba(255,255,255,.3);justify-self:start;}
+.cart-sum .btn--ghost:hover{--btn-bg:rgba(255,255,255,.1);--btn-fg:#fff;--btn-bd:#fff;}
+.cart-hint{padding:12px 14px;border-radius:10px;background:var(--accent-50);border:1px solid var(--accent-100);font-size:.9rem;margin:0 0 22px;color:var(--ink-soft);}
+.cart-hint a{font-weight:600;color:var(--accent-700);display:inline-flex;gap:6px;align-items:center;}
+.cart-hint svg{width:15px;height:15px;}
+
+/* katalog ke stažení */
+.catalog-dl{display:grid;gap:clamp(24px,4vw,56px);align-items:center;}
+.catalog-dl__cover{position:relative;max-width:360px;margin-inline:auto;}
+.catalog-dl__cover img{position:relative;border-radius:6px;box-shadow:var(--shadow-l);transform:rotate(-3deg);}
+.catalog-dl__cover::before{content:"";position:absolute;inset:4% -4% -4% 4%;border-radius:6px;background:var(--accent);transform:rotate(4deg);}
+.catalog-dl__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
+
+/* ---------- 12. Výhody / postup / čísla ---------- */
+.features{grid-template-columns:repeat(auto-fit,minmax(238px,1fr));}
+.feature{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px 26px;transition:.26s var(--ease);
+}
+.feature:hover{border-color:var(--accent-100);box-shadow:var(--shadow-s);transform:translateY(-3px);}
+.feature__icon{
+  width:50px;height:50px;border-radius:14px;display:grid;place-items:center;
+  background:var(--accent-50);color:var(--accent);margin-bottom:18px;
+}
+.feature__icon svg{width:25px;height:25px;}
+.feature h3{font-size:1.24rem;margin-bottom:8px;}
+.feature p{font-size:.92rem;color:var(--muted);}
+
+.steps{counter-reset:step;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));}
+.step{position:relative;padding-top:16px;}
+.step::before{
+  counter-increment:step;content:"0" counter(step);
+  font-family:var(--font-head);font-size:3.2rem;font-weight:700;
+  color:var(--accent-100);line-height:.8;display:block;margin-bottom:12px;
+}
+.step h3{font-size:1.16rem;margin-bottom:7px;}
+.step p{font-size:.9rem;color:var(--muted);}
+
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+}
+.stat{background:#fff;padding:30px 24px;text-align:center;}
+.stat b{display:block;font-family:var(--font-head);font-size:clamp(2.2rem,4vw,3rem);color:var(--accent);line-height:1;margin-bottom:8px;}
+.stat span{font-size:.86rem;color:var(--muted);}
+
+/* ---------- 13. CTA pás ---------- */
+.cta-band{
+  position:relative;overflow:hidden;
+  background:var(--bg-dark);color:#fff;border-radius:var(--radius-l);
+  padding:clamp(38px,5vw,64px) clamp(26px,4vw,58px);
+}
+.cta-band::after{
+  content:"";position:absolute;right:-90px;top:-90px;width:420px;height:420px;
+  background:radial-gradient(circle,rgba(200,25,31,.42) 0%,rgba(200,25,31,0) 70%);
+  pointer-events:none;   /* jinak dekorace překryje tlačítka a spolkne kliknutí */
+}
+.cta-band__inner{position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:26px;}
+.cta-band h2{color:#fff;margin-bottom:10px;}
+.cta-band p{color:rgba(255,255,255,.68);max-width:52ch;margin:0;}
+.cta-band__actions{display:flex;flex-wrap:wrap;gap:12px;}
+
+/* ---------- 14. Kontakt ---------- */
+.contact-grid{display:grid;gap:clamp(28px,4vw,46px);align-items:start;}
+.form-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);
+  padding:clamp(24px,3vw,38px);box-shadow:var(--shadow-s);
+}
+.form-row{display:grid;gap:16px;}
+.form-note{font-size:.8rem;color:var(--muted);margin-top:14px;}
+.check--gdpr{align-items:flex-start;font-size:.86rem;color:var(--muted);margin:6px 0 18px;}
+.check--gdpr input{margin-top:2px;}
+.check--gdpr a{color:var(--accent-700);text-decoration:underline;}
+.form-status{
+  display:none;margin-top:16px;padding:14px 16px;border-radius:10px;
+  font-size:.9rem;font-weight:500;
+}
+.form-status.is-ok{display:block;background:var(--accent-50);color:var(--accent-700);border:1px solid var(--accent-100);}
+.form-status.is-err{display:block;background:#FDECEC;color:#9B2226;border:1px solid #F6D2D2;}
+
+.contact-list{display:grid;gap:4px;}
+.contact-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);}
+.contact-item:last-child{border-bottom:0;}
+.contact-item__icon{
+  width:42px;height:42px;flex:none;border-radius:12px;display:grid;place-items:center;
+  background:var(--accent-50);color:var(--accent);
+}
+.contact-item__icon svg{width:20px;height:20px;}
+.contact-item h4{margin:0 0 3px;font-family:var(--font-body);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+.contact-item p{margin:0;font-size:1.02rem;font-weight:600;color:var(--ink);}
+.contact-item p small{display:block;font-size:.84rem;font-weight:400;color:var(--muted);margin-top:3px;}
+.map{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:16/10;background:var(--bg-soft);}
+.map iframe{width:100%;height:100%;border:0;display:block;}
+
+/* ---------- 15. O nás ---------- */
+.page-head{
+  padding-top:calc(var(--header-h) + clamp(34px,5vw,60px));
+  padding-bottom:clamp(30px,4vw,48px);
+  background:linear-gradient(180deg,#F6F6F7 0%,#FFFFFF 100%);
+  border-bottom:1px solid var(--line);
+}
+.page-head h1{font-size:clamp(2.1rem,5vw,3.4rem);margin-bottom:14px;}
+.split{display:grid;gap:clamp(28px,4vw,54px);align-items:center;}
+.split__media{border-radius:var(--radius-l);overflow:hidden;border:1px solid var(--line);background:#fff;padding:24px;}
+.timeline{position:relative;padding-left:32px;}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line);}
+.timeline li{position:relative;padding-bottom:28px;}
+.timeline li:last-child{padding-bottom:0;}
+.timeline li::before{
+  content:"";position:absolute;left:-32px;top:6px;width:16px;height:16px;border-radius:50%;
+  background:#fff;border:3px solid var(--accent);
+}
+.timeline b{display:block;font-family:var(--font-head);font-size:1.3rem;color:var(--accent);line-height:1;margin-bottom:5px;}
+.timeline h4{margin:0 0 5px;}
+.timeline p{font-size:.92rem;color:var(--muted);margin:0;}
+
+.faq{max-width:820px;margin-inline:auto;display:grid;gap:12px;}
+.faq__item{border:1px solid var(--line);border-radius:var(--radius);background:#fff;overflow:hidden;}
+.faq__q{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 22px;background:none;border:0;cursor:pointer;text-align:left;
+  font-family:var(--font-head);font-size:1.2rem;font-weight:600;color:var(--ink);
+}
+.faq__q svg{width:20px;height:20px;flex:none;color:var(--accent);transition:transform .25s var(--ease);}
+.faq__item.is-open .faq__q svg{transform:rotate(45deg);}
+.faq__a{max-height:0;overflow:hidden;transition:max-height .3s var(--ease);}
+.faq__a p{padding:0 22px 20px;font-size:.94rem;color:var(--muted);margin:0;}
+
+/* ---------- 16. Patička ---------- */
+.footer{background:var(--bg-dark);color:rgba(255,255,255,.62);padding:clamp(48px,6vw,76px) 0 0;font-size:.92rem;}
+.footer__grid{display:grid;gap:34px;padding-bottom:44px;}
+.footer .logo__img{height:72px;}
+.footer__about{max-width:34ch;margin-top:16px;}
+.footer h4{color:#fff;font-family:var(--font-body);font-size:.78rem;letter-spacing:.13em;text-transform:uppercase;margin-bottom:16px;}
+.footer__links li{margin-bottom:9px;}
+.footer__links a{transition:color .2s var(--ease);}
+.footer__links a:hover{color:#fff;}
+.footer__contact li{display:flex;gap:11px;margin-bottom:12px;}
+.footer__contact svg{width:17px;height:17px;color:var(--accent);flex:none;margin-top:3px;}
+.footer__contact a:hover{color:#fff;}
+.socials{display:flex;gap:10px;margin-top:20px;}
+.socials a{
+  width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;
+  transition:.2s var(--ease);
+}
+.socials a:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px);}
+.socials svg{width:18px;height:18px;}
+.footer__bottom{
+  border-top:1px solid rgba(255,255,255,.1);padding:20px 0;
+  display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between;
+  font-size:.84rem;color:rgba(255,255,255,.45);
+}
+.footer__bottom a:hover{color:#fff;}
+
+/* ---------- 17. Zpět nahoru ---------- */
+.to-top{
+  position:fixed;right:20px;bottom:20px;z-index:90;
+  width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent);color:#fff;border:0;cursor:pointer;
+  box-shadow:0 8px 20px rgba(200,25,31,.32);
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:.28s var(--ease);
+}
+.to-top.is-visible{opacity:1;visibility:visible;transform:none;}
+.to-top:hover{background:var(--accent-600);}
+.to-top svg{width:20px;height:20px;}
+
+/* ---------- 18. Animace ---------- */
+[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+[data-reveal].is-visible{opacity:1;transform:none;}
+[data-reveal][style*="--d"]{transition-delay:var(--d);}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important;}
+  [data-reveal]{opacity:1;transform:none;}
+}
+
+/* ---------- 19. Responzivita ---------- */
+/* na velkých monitorech pustit obsah do šířky, jinak zůstane úzký proužek uprostřed */
+@media (min-width:1500px){ :root{--wrap:1360px;} }
+@media (min-width:1900px){ :root{--wrap:1500px;} }
+
+@media (min-width:700px){
+  .form-row--2{grid-template-columns:1fr 1fr;}
+  .hero__usp{gap:12px 30px;}
+  .footer__grid{grid-template-columns:1.4fr 1fr 1fr;}
+}
+@media (min-width:900px){
+  .hero__grid{grid-template-columns:1fr 1fr;}
+  .cart-layout{grid-template-columns:minmax(0,1.3fr) minmax(0,.9fr);}
+  .catalog-dl{grid-template-columns:.8fr 1.2fr;}
+  .detail{grid-template-columns:minmax(0,1fr) minmax(0,1fr);}
+  .split{grid-template-columns:1fr 1fr;}
+  .split--reverse .split__media{order:2;}
+  .contact-grid{grid-template-columns:1.15fr .85fr;}
+  .footer__grid{grid-template-columns:1.5fr 1fr 1fr 1.2fr;}
+}
+@media (min-width:1000px){
+  .catalog{grid-template-columns:270px 1fr;}
+}
+@media (max-width:999px){
+  .filters{
+    position:static;display:none;margin-bottom:6px;
+    max-height:none;overflow-y:visible;
+  }
+  .filters.is-open{display:block;}
+  .filters-toggle{display:inline-flex;}
+}
+@media (max-width:1079px){
+  /* mezi 960 a 1080 px se menu vejde, jen bez telefonního čísla */
+  .header__tel{display:none;}
+}
+@media (max-width:959px){
+  .nav{display:none;}
+  .burger{display:flex;}
+}
+@media (max-width:600px){
+  /* na úzkých displejích se do hlavičky vejde jen logo, poptávka a hamburger */
+  .header__cta .btn{display:none;}
+  .header__inner{gap:12px;}
+  .header__cart{padding:0;width:44px;height:44px;justify-content:center;}
+  .header__cart-text{display:none;}
+  .header__cart-count{position:absolute;top:-4px;right:-4px;}
+}
+@media (max-width:720px){
+  :root{--header-h:66px;}
+  /* prst potřebuje aspoň 44 px, myš si vystačí s méně */
+  .btn--sm{min-height:44px;}
+  a.chip{min-height:38px;}
+  .check{padding:11px 0;}
+  .footer__links a{display:inline-block;padding:7px 0;}
+  .footer__contact a{display:inline-block;padding:4px 0;}
+  .breadcrumb a{display:inline-block;padding:4px 0;}
+  .wrap{width:min(100% - 32px,var(--wrap));}
+  .logo__img{height:50px;}
+  .hero__badge{left:auto;right:4px;bottom:0;padding:12px 15px;}
+  .hero::before{width:90%;height:46%;bottom:-12%;right:-30%;}
+  .hero__badge b{font-size:1.55rem;}
+  .hero__actions .btn{flex:1 1 auto;}
+  .products{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+  .product__body{padding:14px 15px 16px;}
+  .product__name{font-size:1.1rem;}
+  .product__price b{font-size:1.2rem;}
+  .product__foot{flex-direction:column;align-items:stretch;gap:10px;}
+  .product__foot .btn{width:100%;}
+  .detail__gallery{position:static;}
+  .catalog__sort{margin-left:0;width:100%;}
+  .catalog__sort .select{flex:1;min-width:0;}
+  .cta-band__inner{flex-direction:column;align-items:flex-start;}
+  .cta-band__actions{width:100%;}
+  .cta-band__actions .btn{flex:1 1 auto;}
+  .footer__bottom{flex-direction:column;}
+  .to-top{right:14px;bottom:14px;}
+  .cart-item{grid-template-columns:72px minmax(0,1fr) auto;gap:10px 14px;padding:12px;}
+  .cart-item__img img{width:72px;height:54px;}
+  .cart-item__img{grid-row:span 2;}
+  .cart-item__remove{grid-column:3;grid-row:1;}
+  .cart-item .qty{grid-column:2;grid-row:2;justify-self:start;}
+  .cart-item__price{grid-column:3;grid-row:2;min-width:0;}
+  .opt{min-width:74px;padding:9px 11px;}
+  .config{padding:18px 16px;}
+  .config__buy .btn{flex-basis:100%;}
+  .toast{gap:10px;}
+  .toast img{display:none;}
+}
+@media (max-width:420px){
+  .products{grid-template-columns:1fr;}
+  .product__specs{display:flex;}
+}
+@media print{
+  .header,.mobile-nav,.footer,.to-top,.cta-band,.filters,.toast,.config__buy{display:none !important;}
+}
+
+@media(max-width:560px){.var-table{font-size:.8rem}.var-table th,.var-table td{padding:9px 8px}.var-table th{font-size:.66rem;letter-spacing:.04em}}
+
+/* =========================================================
+   agripol.cz — doplňky oproti webu adaptérů
+   ========================================================= */
+.hero__photo{position:relative;width:100%;aspect-ratio:4/3.3;object-fit:cover;border-radius:var(--radius-l);box-shadow:0 30px 60px rgba(0,0,0,.45);}
+.hero__badge--tl{left:auto;right:-6px;top:6%;bottom:auto;}
+.hero__badge span{max-width:14ch;}
+
+/* pás značek */
+.brands{padding:30px 0;border-bottom:1px solid var(--line);}
+.brands__inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px 40px;}
+.brands__label{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.brands__list{display:flex;flex-wrap:wrap;align-items:center;gap:18px 44px;}
+.brands__list img{height:34px;width:auto;max-width:130px;object-fit:contain;filter:grayscale(1);opacity:.65;transition:.25s var(--ease);}
+.brands__list img:hover{filter:none;opacity:1;}
+
+/* čtyři hlavní bloky */
+.mains{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+.main-card{position:relative;display:flex;align-items:flex-end;min-height:360px;border-radius:var(--radius-l);overflow:hidden;color:#fff;isolation:isolate;}
+.main-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .5s var(--ease);}
+.main-card::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,21,24,.05) 10%,rgba(20,21,24,.92) 85%);}
+.main-card:hover img{transform:scale(1.06);}
+.main-card__body{padding:26px;}
+.main-card h3{color:#fff;margin-bottom:6px;text-transform:uppercase;}
+.main-card p{font-size:.9rem;color:rgba(255,255,255,.78);margin-bottom:14px;}
+.main-card__more{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.88rem;color:#fff;}
+.main-card__more svg{width:15px;height:15px;transition:transform .25s var(--ease);}
+.main-card:hover .main-card__more svg{transform:translateX(4px);}
+.main-card::after{content:"";position:absolute;left:0;top:0;width:54px;height:5px;background:var(--accent);}
+
+/* dlaždice nabídky */
+.offer{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.offer-tile{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.28s var(--ease);}
+.offer-tile:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-4px);}
+.offer-tile__img{aspect-ratio:1/1;background:#fff;padding:14px;border-bottom:1px solid var(--line);}
+.offer-tile__img img{width:100%;height:100%;object-fit:contain;transition:transform .35s var(--ease);}
+.offer-tile:hover .offer-tile__img img{transform:scale(1.06);}
+.offer-tile__img--photo{padding:0;}
+.offer-tile__img--photo img{object-fit:cover;}
+.offer-tile span{padding:15px 18px;font-family:var(--font-head);font-size:1.2rem;font-weight:700;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.offer-tile span svg{width:16px;height:16px;color:var(--accent);flex:none;transition:transform .25s var(--ease);}
+.offer-tile:hover span svg{transform:translateX(4px);}
+
+/* o firmě */
+.about{display:grid;gap:clamp(28px,4vw,56px);align-items:center;}
+.about__media{position:relative;}
+.about__media img{width:100%;border-radius:var(--radius-l);box-shadow:var(--shadow-l);aspect-ratio:4/3;object-fit:cover;}
+.about__media::after{content:"";position:absolute;left:-14px;bottom:-14px;width:42%;height:42%;border-left:5px solid var(--accent);border-bottom:5px solid var(--accent);border-radius:0 0 0 var(--radius-l);z-index:-1;}
+.about ul{display:grid;gap:10px;margin:20px 0 28px;}
+.about li{display:flex;gap:11px;align-items:flex-start;}
+.about li svg{width:19px;height:19px;color:var(--accent);flex:none;margin-top:4px;}
+
+/* reference */
+.quotes{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));}
+.quote{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 26px;display:flex;flex-direction:column;}
+.quote::before{content:"“";font-family:var(--font-head);font-size:4.2rem;line-height:.6;color:var(--accent-100);height:30px;}
+.quote p{font-size:.98rem;color:var(--ink-soft);flex:1;}
+.quote footer{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);}
+.quote b{display:block;color:var(--ink);font-size:.95rem;}
+.quote small{color:var(--muted);font-size:.82rem;}
+
+.cross{display:grid;gap:22px;align-items:center;background:var(--accent-50);border:1px solid var(--accent-100);border-radius:var(--radius-l);padding:clamp(24px,3.4vw,40px);}
+.cross h3{margin-bottom:6px;}
+.cross p{margin:0;color:var(--ink-soft);}
+
+@media(min-width:900px){
+  .about{grid-template-columns:1fr 1fr;}
+  .cross{grid-template-columns:1fr auto;}
+}
+@media(max-width:720px){
+  .hero__photo{aspect-ratio:4/3;}
+  .hero__badge--tl{right:4px;top:auto;bottom:0;}
+  .main-card{min-height:300px;}
+}
+
+/* logo Agripol má černý nápis — na tmavém podkladu ho drží bílá ploška */
+.header--dark .logo,.footer .logo{background:#fff;border-radius:12px;padding:3px 10px;}
+.footer .logo__img{height:60px;}
+@media(max-width:720px){.logo__img{height:44px;}.footer .logo__img{height:52px;}}
+
+.quote{margin:0;}
+@media(max-width:720px){
+  .offer{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .offer-tile__img{padding:8px;}
+  .offer-tile span{padding:12px;font-size:1.02rem;}
+  .offer-tile span svg{display:none;}
+}
+
+/* =========================================================
+   Katalog, detail produktu, konfigurátor, rozbalovací menu
+   ========================================================= */
+.nav__item{position:relative;}
+.nav__link svg{display:inline-block;width:12px;height:12px;margin-left:3px;vertical-align:-1px;opacity:.6;}
+.nav__sub{position:absolute;left:0;top:100%;min-width:230px;padding:8px;margin-top:4px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-l);opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s var(--ease);z-index:20;}
+.nav__item.has-sub:hover .nav__sub,.nav__item.has-sub:focus-within .nav__sub{opacity:1;visibility:visible;transform:none;}
+.nav__sub a{display:block;padding:10px 14px;border-radius:8px;font-size:.92rem;color:var(--ink-soft);}
+.nav__sub a:hover{background:var(--accent-50);color:var(--accent-700);}
+.nav__link{padding:10px 11px;font-size:.9rem;}
+.nav__link.is-active::after{left:11px;right:11px;}
+.mobile-nav__sub{display:block;padding:9px 4px 9px 18px;color:rgba(255,255,255,.7);font-size:1rem;border-bottom:1px solid rgba(255,255,255,.06);}
+.mobile-nav__link{font-size:1.3rem;padding:13px 4px;}
+@media(max-width:1180px){.header__tel{display:none;}}
+@media(max-width:1060px){.nav{display:none;}.burger{display:flex;}}
+
+.breadcrumb{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:.84rem;color:var(--muted);margin-bottom:14px;}
+.breadcrumb a:hover{color:var(--accent-700);}
+.breadcrumb i{font-style:normal;opacity:.5;}
+.breadcrumb span{color:var(--ink);font-weight:500;}
+.page-head--slim{padding-bottom:6px;border-bottom:0;background:#fff;}
+.page-head--slim .breadcrumb{margin-bottom:0;}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin-bottom:18px;}
+.search{position:relative;flex:1 1 260px;max-width:420px;}
+.search svg{position:absolute;left:14px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--muted);}
+.search input{width:100%;padding:12px 16px 12px 42px;border:1.5px solid var(--line-strong);border-radius:100px;background:#fff;}
+.search input:focus{outline:0;border-color:var(--accent);}
+.toolbar .select{max-width:230px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;}
+.chipbtn{padding:9px 16px;border-radius:100px;border:1.5px solid var(--line-strong);background:#fff;font-weight:600;font-size:.88rem;cursor:pointer;color:var(--ink-soft);transition:.2s var(--ease);}
+.chipbtn:hover{border-color:var(--accent);color:var(--accent-700);}
+.chipbtn.is-on{background:var(--accent);border-color:var(--accent);color:#fff;}
+.count{font-size:.9rem;color:var(--muted);margin-bottom:16px;}
+.empty{padding:40px 0;text-align:center;color:var(--muted);}
+.pgrid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;}
+.pcard{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.28s var(--ease);}
+.pcard:hover{border-color:var(--accent);box-shadow:var(--shadow);transform:translateY(-4px);}
+.pcard[hidden]{display:none;}
+.pcard__img{aspect-ratio:4/3;background:#fff;border-bottom:1px solid var(--line);display:grid;place-items:center;overflow:hidden;}
+.pcard__img img{width:100%;height:100%;object-fit:contain;padding:8px;transition:transform .35s var(--ease);}
+.pcard:hover .pcard__img img{transform:scale(1.05);}
+.pcard__body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
+.pcard__body h3{font-size:1.2rem;margin:0;line-height:1.15;}
+.pcard__mth{font-size:.82rem;color:var(--muted);}
+.pcard__meta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:6px;}
+.pcard__meta b{font-family:var(--font-head);font-size:1.25rem;color:var(--accent-700);white-space:nowrap;}
+.offer-tile span small{font-family:var(--font-body);font-size:.78rem;font-weight:600;color:var(--muted);background:var(--bg-soft);border:1px solid var(--line);border-radius:100px;padding:2px 9px;margin-left:auto;}
+
+.detail{display:grid;gap:clamp(24px,4vw,56px);align-items:start;}
+.gallery__main{aspect-ratio:4/3;background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);display:grid;place-items:center;overflow:hidden;}
+.gallery__main img{width:100%;height:100%;object-fit:contain;padding:10px;}
+.gallery__main--empty{color:var(--muted);}
+.gallery__thumbs{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;}
+.gthumb{width:76px;height:60px;padding:0;border:2px solid var(--line);border-radius:10px;background:#fff;overflow:hidden;cursor:pointer;transition:.2s var(--ease);}
+.gthumb img{width:100%;height:100%;object-fit:cover;}
+.gthumb:hover,.gthumb.is-on{border-color:var(--accent);}
+.detail__title{font-size:clamp(2rem,4.4vw,3rem);margin-bottom:12px;}
+.detail__chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.detail__price{margin-bottom:22px;}
+.detail__price b{display:block;font-family:var(--font-head);font-size:clamp(1.9rem,3.6vw,2.6rem);color:var(--accent-700);line-height:1;}
+.detail__price small{color:var(--muted);}
+.detail__cta{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px;}
+.detail__usp{display:grid;gap:8px;}
+.detail__usp li{display:flex;gap:9px;align-items:center;font-size:.92rem;}
+.detail__usp svg{width:17px;height:17px;color:var(--accent);flex:none;}
+.detail__boxes{display:grid;gap:22px;align-items:start;}
+.box{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,2.6vw,30px);}
+.box h3{margin-bottom:14px;}
+.prose p{margin-bottom:.9rem;}
+.prose ul{list-style:disc;padding-left:20px;margin:0 0 1rem;display:grid;gap:6px;}
+.prose--doc{max-width:78ch;}
+.prose--doc h3{margin-top:1.6rem;text-transform:none;}
+.specs{width:100%;border-collapse:collapse;font-size:.95rem;}
+.specs th,.specs td{padding:11px 4px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+.specs th{font-weight:500;color:var(--muted);width:55%;}
+.specs td{font-weight:600;color:var(--ink);}
+.specs tr:last-child th,.specs tr:last-child td{border-bottom:0;}
+.ralgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:18px;}
+.ralgrid b{display:block;color:var(--ink);margin-bottom:6px;}
+.ralgrid span{display:block;font-size:.88rem;color:var(--muted);padding:3px 0;}
+
+.calc{display:grid;gap:26px;align-items:start;}
+.calc__opts h4{margin:0 0 12px;font-family:var(--font-body);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.seg{display:inline-flex;border:1.5px solid var(--line-strong);border-radius:100px;overflow:hidden;margin-bottom:26px;background:#fff;}
+.seg label{cursor:pointer;}
+.seg input{position:absolute;opacity:0;}
+.seg span{display:block;padding:11px 22px;font-weight:600;font-size:.92rem;}
+.seg input:checked+span{background:var(--accent);color:#fff;}
+.extras{display:grid;gap:10px;}
+.extra{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:.2s var(--ease);}
+.extra:hover{border-color:var(--accent);}
+.extra:has(input:checked){border-color:var(--accent);background:var(--accent-50);}
+.extra input{margin-top:4px;accent-color:var(--accent);width:18px;height:18px;flex:none;}
+.extra__t{flex:1;}
+.extra__t b{display:block;color:var(--ink);}
+.extra__t small{color:var(--muted);font-size:.84rem;}
+.extra__p{font-weight:700;color:var(--accent-700);white-space:nowrap;font-size:.92rem;}
+.calc__sum{background:#fff;border:1px solid var(--line);border-radius:var(--radius-l);padding:26px;box-shadow:var(--shadow);position:sticky;top:calc(var(--header-h) + 18px);}
+.calc__row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.94rem;}
+.calc__tot{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 20px;}
+.calc__tot b{font-family:var(--font-head);font-size:2.1rem;color:var(--accent-700);line-height:1;}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:#fff;}
+.compat{width:100%;border-collapse:collapse;}
+.compat th,.compat td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line);}
+.compat thead th{background:var(--bg-soft);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.compat tbody th{font-weight:600;color:var(--ink);}
+.compat tr:last-child th,.compat tr:last-child td{border-bottom:0;}
+.compat tr[hidden]{display:none;}
+.ldr{display:inline-block;margin:2px 6px 2px 0;padding:5px 13px;border-radius:100px;background:var(--accent-50);border:1px solid var(--accent-100);color:var(--accent-700);font-weight:600;font-size:.86rem;transition:.2s var(--ease);}
+.ldr:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+.gfigs{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;}
+.gfig{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+.gfig img{width:100%;aspect-ratio:4/3;object-fit:cover;}
+.gfig figcaption{padding:12px 14px;font-size:.86rem;color:var(--ink-soft);}
+
+@media(min-width:900px){
+  .detail{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);}
+  .detail__boxes{grid-template-columns:1.3fr 1fr;}
+  .detail__boxes>.box:only-child{grid-column:1/-1;}
+  .calc{grid-template-columns:minmax(0,1.5fr) minmax(300px,.8fr);}
+}
+@media(max-width:720px){
+  .pgrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+  .pcard__body{padding:12px 13px 14px;}
+  .pcard__body h3{font-size:1.02rem;}
+  .pcard__meta b{font-size:1.05rem;}
+  .toolbar .select{max-width:none;flex:1 1 100%;}
+  .calc__sum{position:static;}
+  .compat th,.compat td{padding:12px;}
+}
+@media(max-width:600px){.header__cart{display:none;}}
